@@ -1,4 +1,4 @@
-public class GD {
+public class GD{
     public static int board[][] = new int[20][30];
     public static int width = 1050;
     public static int height = 700;

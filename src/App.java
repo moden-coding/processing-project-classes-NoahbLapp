@@ -19,7 +19,6 @@ public class App extends PApplet{
     }
 
     public void draw(){
-       
 
     }
 }
