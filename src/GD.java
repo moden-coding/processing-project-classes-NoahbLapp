@@ -7,6 +7,7 @@ public class GD{
     public static int numsOfOrbs = 0;
     public static int colorOfOrb = 0;
     public static int wallColor;
+    public static int[] pacXY;
 }
 /*
 Notes to self: 

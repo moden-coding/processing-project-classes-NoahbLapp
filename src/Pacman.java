@@ -29,6 +29,7 @@ public class Pacman {
         updatePosition();
         boardx = roundToNearest(x, segDiv) / segDiv;
         boardy = roundToNearest(y, segDiv) / segDiv;
+        GD.pacXY = new int[]{boardx,boardy};
         eatOrbs();
         p.fill(255, 255, 0);
     

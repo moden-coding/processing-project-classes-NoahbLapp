@@ -6,6 +6,7 @@ import java.util.Random;
 public class App extends PApplet{
     BoardControl boardMaker = new BoardControl(this);
     Pacman pacman;
+    Ghost redGhost;
     public static void main(String[] args)  {
         PApplet.main("App");
     }
@@ -14,6 +15,7 @@ public class App extends PApplet{
         background(0);
         int numOfShapes = (int)random(6,20);
         boardMaker.makeBoard();
+        redGhost = new Ghost(this,1.5f, "src\\pixilart-drawing.png");
         pacman = new Pacman(this, 2f);
     }
 
@@ -22,9 +24,12 @@ public class App extends PApplet{
     }
 
     public void draw(){
-        background(0);
-        boardMaker.showBoard();
-        pacman.pacDisplay();
+        if(GD.numsOfOrbs != 0){
+            background(0);
+            boardMaker.showBoard();
+            pacman.pacDisplay();
+            redGhost.displayGhost();
+        }
     }
 
     public void keyPressed(){
