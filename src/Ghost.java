@@ -57,7 +57,7 @@ public class Ghost {
         if(!started){
             startMove();
         }else{
-            move();
+            //move();
         }
 
         p.image(ghostImage, x, y, segDiv, segDiv);
@@ -74,9 +74,9 @@ public class Ghost {
             x+=speed;
         }else if(direction.equals("left")){
             x-=speed;
-        }else if(direction.equals("up")){
-            y-=speed;
         }else if(direction.equals("down")){
+            y-=speed;
+        }else if(direction.equals("up")){
             y+=speed;
         }
     }
