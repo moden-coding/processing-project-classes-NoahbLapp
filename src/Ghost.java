@@ -57,28 +57,30 @@ public class Ghost {
         if(!started){
             startMove();
         }else{
-            //move();
+            move();
         }
 
         p.image(ghostImage, x, y, segDiv, segDiv);
     }
 
     private void move(){
-        boardx = roundToNearest(x, segDiv) / segDiv;
-        boardy = roundToNearest(y, segDiv) / segDiv;
-        int xy[] = {boardx,boardy};
-        ArrayList<String> path = pathFind.bfs(GD.board, xy,GD.pacXY);
-        String direction = path.get(0);
-        System.out.println(direction);
-        if(direction.equals("right")){
-            x+=speed;
-        }else if(direction.equals("left")){
-            x-=speed;
-        }else if(direction.equals("down")){
-            y-=speed;
-        }else if(direction.equals("up")){
-            y+=speed;
-        }
+        // boardx = roundToNearest(x, segDiv) / segDiv;
+        // boardy = roundToNearest(y, segDiv) / segDiv;
+        // int xy[] = {boardx,boardy};
+        // Pathfinding pathfind = new Pathfinding();
+        // ArrayList<String> path = pathfind.bfs(GD.board, xy,GD.pacXY);
+        // System.out.println(path.toString()+"\n");
+        // String direction = path.get(0);
+        // System.out.println(direction);
+        // if(direction.equals("right")){
+        //     x+=speed;
+        // }else if(direction.equals("left")){
+        //     x-=speed;
+        // }else if(direction.equals("up")){
+        //     y-=speed;
+        // }else if(direction.equals("down")){
+        //     y+=speed;
+        // }
     }
 
     private int roundToNearest(float number, int target) {

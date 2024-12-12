@@ -29,6 +29,16 @@ public class App extends PApplet{
             boardMaker.showBoard();
             pacman.pacDisplay();
             redGhost.displayGhost();
+            int[][] testGrid = {
+                {0, 1, 0, 0},
+                {0, 1, 0, 1},
+                {0, 0, 0, 1},
+                {1, 1, 0, 0}
+            };
+            int[] start = {0, 0};
+            int[] goal = {3, 3};
+            ArrayList<String> path = Pathfinding.bfs(testGrid, start, goal);
+            System.out.println("Path: " + path);
         }
     }
 
