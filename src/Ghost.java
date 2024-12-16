@@ -11,7 +11,6 @@ public class Ghost {
     private PImage ghostImage;  // Ghost sprite
     private int[] startPosition;
     private boolean started;
-    private Pathfinding pathFind;
     private int boardx;
     private int boardy;
 
@@ -26,8 +25,6 @@ public class Ghost {
         this.startPosition = new int[] {16, 7};
         this.boardx = this.startPosition[0];
         this.boardy = this.startPosition[1];
-
-        this.pathFind = new Pathfinding();
 
         // Initialize the ghost's position
         this.x = p.width / 2-(this.segDiv/2);
@@ -64,23 +61,23 @@ public class Ghost {
     }
 
     private void move(){
-        // boardx = roundToNearest(x, segDiv) / segDiv;
-        // boardy = roundToNearest(y, segDiv) / segDiv;
-        // int xy[] = {boardx,boardy};
-        // Pathfinding pathfind = new Pathfinding();
-        // ArrayList<String> path = pathfind.bfs(GD.board, xy,GD.pacXY);
-        // System.out.println(path.toString()+"\n");
-        // String direction = path.get(0);
-        // System.out.println(direction);
-        // if(direction.equals("right")){
-        //     x+=speed;
-        // }else if(direction.equals("left")){
-        //     x-=speed;
-        // }else if(direction.equals("up")){
-        //     y-=speed;
-        // }else if(direction.equals("down")){
-        //     y+=speed;
-        // }
+        boardx = roundToNearest(x, segDiv) / segDiv;
+        boardy = roundToNearest(y, segDiv) / segDiv;
+        int xy[] = {boardx,boardy};
+        Pathfinding pathfind = new Pathfinding(GD.board);
+        ArrayList<String> path = pathfind.solveMaze(xy[1],xy[0],GD.pacXY[1],GD.pacXY[0]);
+        String dir = path.get(0);
+        System.out.println(path);
+        if(direction.equals("RIGHT")){
+            x+=speed;
+        }else if(direction.equals(":LEFT")){
+            x-=speed;
+        }else if(direction.equals("UP")){
+            y-=speed;
+        }else if(direction.equals("DOWN")){
+            y+=speed;
+        }
+        xy = new int[]{roundToNearest(x, segDiv)/segDiv,roundToNearest(y, segDiv)/segDiv};
     }
 
     private int roundToNearest(float number, int target) {
