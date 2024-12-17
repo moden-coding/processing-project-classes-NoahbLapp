@@ -14,6 +14,8 @@ public class Ghost {
     private int boardx;
     private int boardy;
 
+    private ArrayList<String> path;
+
     Ghost(PApplet p, float speed, String imagePath) {
         this.p = p;
         this.speed = speed;
@@ -35,6 +37,9 @@ public class Ghost {
     }
 
     private void startMove(){
+        Pathfinding pathfind = new Pathfinding(GD.board);
+        int xy[] = {this.boardx,this.boardy};
+        this.path = pathfind.solveMaze(xy[1],xy[0],GD.pacXY[1],GD.pacXY[0]);
         if(roundToNearest(y,segDiv)/segDiv != startPosition[1]){
             y -= speed ;
             if(roundToNearest(y, segDiv)/segDiv == startPosition[1]){
@@ -61,23 +66,26 @@ public class Ghost {
     }
 
     private void move(){
-        boardx = roundToNearest(x, segDiv) / segDiv;
-        boardy = roundToNearest(y, segDiv) / segDiv;
-        int xy[] = {boardx,boardy};
-        Pathfinding pathfind = new Pathfinding(GD.board);
-        ArrayList<String> path = pathfind.solveMaze(xy[1],xy[0],GD.pacXY[1],GD.pacXY[0]);
-        String dir = path.get(0);
-        System.out.println(path);
-        if(direction.equals("RIGHT")){
-            x+=speed;
-        }else if(direction.equals(":LEFT")){
-            x-=speed;
-        }else if(direction.equals("UP")){
-            y-=speed;
-        }else if(direction.equals("DOWN")){
-            y+=speed;
+        try{
+            boardx = roundToNearest(x, segDiv) / segDiv;
+            boardy = roundToNearest(y, segDiv) / segDiv;
+            String direction = path.get(0);
+            path.remove(0);
+            //System.out.println(path);
+            if(direction.equals("RIGHT")){
+                x+=35;
+            }else if(direction.equals("LEFT")){
+                x-=35;
+            }else if(direction.equals("UP")){
+                y-=35;
+            }else if(direction.equals("DOWN")){
+                y+=35;
+            }
+        }catch(Exception  e){
+            Pathfinding pathfind = new Pathfinding(GD.board);
+            int xy[] = {this.boardx,this.boardy};
+            this.path = pathfind.solveMaze(xy[1],xy[0],GD.pacXY[1],GD.pacXY[0]);
         }
-        xy = new int[]{roundToNearest(x, segDiv)/segDiv,roundToNearest(y, segDiv)/segDiv};
     }
 
     private int roundToNearest(float number, int target) {

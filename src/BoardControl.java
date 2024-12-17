@@ -362,8 +362,7 @@ public class BoardControl{
     }
 
     public void showBoard(){
-        this.board = GD.board;
-
+        GD.board = this.board;
         //make board outline
         p.strokeWeight(5);
         p.stroke(this.blueColor);

@@ -22,7 +22,7 @@ public class Pathfinding {//ChatGPT helped a lot with this for how I would do it
         return null;
     }
     private static boolean dfs(int[][] maze, int row, int col, int endRow, int endCol, boolean[][] visited, ArrayList<String> directions){
-        if (row < 0 || row >= maze.length || col < 0 || col >= maze[0].length || visited[row][col] || maze[row][col] == 1) {
+        if (row < 0 || row >= maze.length || col < 0 || col >= maze[0].length || visited[row][col] || maze[row][col] != 0) {
             return false;
         }
 
