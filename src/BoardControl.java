@@ -355,6 +355,15 @@ public class BoardControl{
         }
     }
 
+    public void clearBoard(){
+        for(int y = 0; y<this.board.length; y++){
+            for (int x = 0; x<this.board[0].length; x++){
+                this.board[y][x] = 0;
+            }
+        }
+        GD.board = this.board;
+    }
+
     private void putSideShape(int x,int y){
         int boardXOffset = this.board[0].length-1;
         board[y][x] = 1;

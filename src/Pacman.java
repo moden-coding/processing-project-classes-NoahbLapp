@@ -110,7 +110,7 @@ public class Pacman {
             }
         }
     }
-    
+
     private int roundToNearest(float number, int target) {
         return Math.round(number / target) * target;
     }

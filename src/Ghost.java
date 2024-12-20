@@ -14,6 +14,8 @@ public class Ghost {
     private int boardx;
     private int boardy;
 
+    private int moveIntervals;
+
     private ArrayList<String> path;
 
     Ghost(PApplet p, float speed, String imagePath) {
@@ -34,12 +36,12 @@ public class Ghost {
 
         // Load the ghost image
         this.ghostImage = p.loadImage(imagePath);
+
+        this.moveIntervals = Math.round(this.segDiv/this.speed);
     }
 
     private void startMove(){
-        Pathfinding pathfind = new Pathfinding(GD.board);
-        int xy[] = {this.boardx,this.boardy};
-        this.path = pathfind.solveMaze(xy[1],xy[0],GD.pacXY[1],GD.pacXY[0]);
+        reinitializePath();
         if(roundToNearest(y,segDiv)/segDiv != startPosition[1]){
             y -= speed ;
             if(roundToNearest(y, segDiv)/segDiv == startPosition[1]){
@@ -65,26 +67,65 @@ public class Ghost {
         p.image(ghostImage, x, y, segDiv, segDiv);
     }
 
-    private void move(){
-        try{
-            boardx = roundToNearest(x, segDiv) / segDiv;
-            boardy = roundToNearest(y, segDiv) / segDiv;
-            String direction = path.get(0);
-            path.remove(0);
-            //System.out.println(path);
-            if(direction.equals("RIGHT")){
-                x+=35;
-            }else if(direction.equals("LEFT")){
-                x-=35;
-            }else if(direction.equals("UP")){
-                y-=35;
-            }else if(direction.equals("DOWN")){
-                y+=35;
+    private void move() {
+        // Check if the path is empty or needs recalculation
+        if (path == null || path.isEmpty()) {
+            reinitializePath();
+            if (path == null || path.isEmpty()) {
+                // If path is still invalid, do nothing this frame
+                return;
             }
-        }catch(Exception  e){
-            Pathfinding pathfind = new Pathfinding(GD.board);
-            int xy[] = {this.boardx,this.boardy};
-            this.path = pathfind.solveMaze(xy[1],xy[0],GD.pacXY[1],GD.pacXY[0]);
+        }
+    
+        // Continue following the path
+        boardx = roundToNearest(x, segDiv) / segDiv;
+        boardy = roundToNearest(y, segDiv) / segDiv;
+        if(!(moveIntervals <= 0)){
+            moveIntervals--;
+        }else{
+            this.direction = path.remove(0); // Safely remove direction
+            x = roundToNearest(x, segDiv);
+            y = roundToNearest(y, segDiv);
+            moveIntervals = Math.round(this.segDiv/this.speed);
+        }
+
+        switch (direction) {
+            case "RIGHT":
+                x += speed;
+                break;
+            case "LEFT":
+                x -= speed;
+                break;
+            case "UP":
+                y -= speed;
+                break;
+            case "DOWN":
+                y += speed;
+                break;
+        }
+    }
+
+    public boolean touchingPacman(){
+        int pacCol = p.color(255,255,0);
+        int behindCol = p.get((int)x-(segDiv/2-15),(int)y+(segDiv/2));
+        int frontCol = p.get((int)x+(segDiv/2+15),(int)y+(segDiv/2));
+        if(behindCol == pacCol || frontCol == pacCol){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void reinitializePath() {
+        Pathfinding pathfind = new Pathfinding(GD.board);
+        int[] xy = {boardx, boardy};
+        path = pathfind.solveMaze(xy[1], xy[0], GD.pacXY[1], GD.pacXY[0]);
+        System.out.println(path);
+    
+        if (path == null || path.isEmpty()) {
+            System.out.println("No valid path found! Ghost will remain stationary.");
+        } else {
+            System.out.println("Path recalculated: " + path);
         }
     }
 
