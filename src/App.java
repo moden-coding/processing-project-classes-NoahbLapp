@@ -13,6 +13,8 @@ public class App extends PApplet{
     Pacman pacman;
     Ghost redGhost;
     Ghost pinkGhost;
+    Ghost yellowGhost;
+    Ghost blueGhost;
     boolean gameRunning;
     public static void main(String[] args)  {
         PApplet.main("App");
@@ -24,10 +26,13 @@ public class App extends PApplet{
         int numOfShapes = (int)random(6,20);
         boardMaker.makeBoard();
         int[] redGhostStart = {16, 7};
-        int[] pinkGhostStart = {14, 7};
-        redGhost = new Ghost(this,2f, "src\\pixilart-drawing.png");
-        //pinkGhost = new Ghost(this,2f, pinkGhostStart,"src\\pink ghost.png");
-
+        int[] pinkGhostStart = {21, 7};
+        int[] yellowGhostStart = {18,7};
+        int[] blueGhostStart = {10,7};
+        redGhost = new Ghost(this,2f, redGhostStart,"src\\pixilart-drawing.png");
+        pinkGhost = new Ghost(this,2f, pinkGhostStart,"src\\pink ghost.png");
+        yellowGhost = new Ghost(this,2f, yellowGhostStart,"src\\yellow Ghost.png");
+        blueGhost = new Ghost(this,2f, blueGhostStart,"src\\blue Ghost.png");
         pacman = new Pacman(this, 2f);
     }
 
@@ -42,19 +47,10 @@ public class App extends PApplet{
                 boardMaker.showBoard();
                 pacman.pacDisplay();
                 redGhost.displayGhost();
-                //pinkGhost.displayGhost();
-                // int[][] testGrid = {
-                //     {0, 1, 0, 0},
-                //     {0, 1, 0, 1},
-                //     {0, 0, 0, 1},
-                //     {1, 1, 0, 0}
-                // };
-                // int[] start = {0, 0};
-                // int[] goal = {3, 3};
-                // Pathfinding pathfind = new Pathfinding(testGrid);
-                // ArrayList<String> path = pathfind.solveMaze(start[1],start[0],goal[1],goal[0]);
-                // System.out.println("Path: " + path);
-                if(redGhost.touchingPacman()){
+                pinkGhost.displayGhost();
+                yellowGhost.displayGhost();
+                blueGhost.displayGhost();
+                if(redGhost.touchingPacman() || pinkGhost.touchingPacman() || yellowGhost.touchingPacman() || blueGhost.touchingPacman()){
                     setLevelZero();
                     gameRunning = false;
                     reset();
@@ -75,8 +71,10 @@ public class App extends PApplet{
     public void reset(){
         boardMaker.clearBoard();
         boardMaker.makeBoard();
+        int[] redGhostStart = {16, 7};
+        int[] pinkGhostStart = {14, 7};
         pacman = new Pacman(this,2f);
-        redGhost = new Ghost(this,2f,"src\\pixilart-drawing.png");
+        redGhost = new Ghost(this,2f,redGhostStart,"src\\pixilart-drawing.png");
     }
 
     public String getLevel(){

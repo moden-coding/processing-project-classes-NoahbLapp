@@ -13,12 +13,13 @@ public class Ghost {
     private boolean started;
     private int boardx;
     private int boardy;
+    private boolean gotHeight;
 
     private int moveIntervals;
 
     private ArrayList<String> path;
 
-    Ghost(PApplet p, float speed, String imagePath) {
+    Ghost(PApplet p, float speed, int[] startPos, String imagePath) {
         this.p = p;
         this.speed = speed;
         this.segDiv = GD.segmentDivision;
@@ -26,7 +27,9 @@ public class Ghost {
 
         this.started = false;
 
-        this.startPosition = new int[] {16, 7};
+        this.gotHeight = false;
+
+        this.startPosition = startPos;
         this.boardx = this.startPosition[0];
         this.boardy = this.startPosition[1];
 
@@ -46,9 +49,14 @@ public class Ghost {
             y -= speed ;
             if(roundToNearest(y, segDiv)/segDiv == startPosition[1]){
                 y = roundToNearest(y, segDiv);
+                gotHeight = true;
             }
         }else if(roundToNearest(x,segDiv)/segDiv != startPosition[0]){
-            x += speed ;
+            if(startPosition[0]<15){
+                x-=speed;
+            }else if(startPosition[0] > 15){
+                x += speed ;
+            }
             if(roundToNearest(x, segDiv)/segDiv == startPosition[0]){
                 x = roundToNearest(x, segDiv);
                 started = true;
