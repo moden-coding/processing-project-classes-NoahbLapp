@@ -43,7 +43,7 @@ public class Ghost {
         this.moveIntervals = Math.round(this.segDiv/this.speed);
     }
 
-    private void startMove(){
+    private void startMove(){//moves the ghost to a starting position
         reinitializePath();
         if(roundToNearest(y,segDiv)/segDiv != startPosition[1]){
             y -= speed ;
@@ -113,18 +113,20 @@ public class Ghost {
         }
     }
 
-    public boolean touchingPacman(){
+    public boolean touchingPacman(){//checks if it hits pacman
         int pacCol = p.color(255,255,0);
         int behindCol = p.get((int)x-(segDiv/2-15),(int)y+(segDiv/2));
         int frontCol = p.get((int)x+(segDiv/2+15),(int)y+(segDiv/2));
-        if(behindCol == pacCol || frontCol == pacCol){
+        int topCol = p.get((int)x+(segDiv/2),(int)y-(segDiv/2-15));
+        int bottCol = p.get((int)x+(segDiv/2),(int)y+(segDiv/2-15));
+        if(behindCol == pacCol || frontCol == pacCol || topCol == pacCol || pacCol ==bottCol){
             return true;
         }else{
             return false;
         }
     }
 
-    private void reinitializePath() {
+    private void reinitializePath() {//finds a new path
         Pathfinding pathfind = new Pathfinding(GD.board);
         int[] xy = {boardx, boardy};
         path = pathfind.solveMaze(xy[1], xy[0], GD.pacXY[1], GD.pacXY[0]);

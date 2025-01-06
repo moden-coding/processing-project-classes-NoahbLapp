@@ -1,4 +1,4 @@
-public class GD{
+public class GD{//public values through the project
     public static int[][] board = new int[20][30];
     public static int width = 1050;
     public static int height = 700;
@@ -9,9 +9,3 @@ public class GD{
     public static int wallColor;
     public static int[] pacXY;
 }
-/*
-Notes to self: 
--ghost can go through white and no one can go through blue with the color (66,122,225)
-
-
- */

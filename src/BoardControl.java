@@ -44,7 +44,7 @@ public class BoardControl{
         this.midShapeOptions.addAll(Arrays.asList("rectangle","T", "_|_"));
     }
 
-    public void makeBoard(){
+    public void makeBoard(){//This resets and makes the board from scratch
         makeMiddle();
         midShapes();
         sideShapes();
@@ -150,9 +150,8 @@ public class BoardControl{
         }
     }
 
-    private void midShapes2(int lineSize){
+    private void midShapes2(int lineSize){//add on to mid Shapes
         int shapeChosen2 = (int)p.random(-1, 3);
-        //int shapeChosen2 = 0;
         String shape2 = midShapeOptions.get(shapeChosen2);
 
         if(shape2.equals("rectangle")){
@@ -236,7 +235,7 @@ public class BoardControl{
     }
 
 
-    private void sideShapes(){
+    private void sideShapes(){//makes the shapes at both sides by making it on the left and mirroring it
         ArrayList<String> leftShapes = new ArrayList<>();
         ArrayList<String> rightShapes = new ArrayList<>();//bigger
         for (int i = 0; i < 4; i++){
@@ -345,7 +344,7 @@ public class BoardControl{
         
     }
 
-    private void findOrbNum(){
+    private void findOrbNum(){//figures out the number of orbs to check the level
         for(int y = 0; y < this.board.length;y++){
             for(int x = 0; x <this.board[0].length;x++){
                 if(board[y][x] == 0){
@@ -355,7 +354,7 @@ public class BoardControl{
         }
     }
 
-    public void clearBoard(){
+    public void clearBoard(){//clears the board
         for(int y = 0; y<this.board.length; y++){
             for (int x = 0; x<this.board[0].length; x++){
                 this.board[y][x] = 0;
@@ -364,13 +363,13 @@ public class BoardControl{
         GD.board = this.board;
     }
 
-    private void putSideShape(int x,int y){
+    private void putSideShape(int x,int y){//puts a block in two spots, left and right
         int boardXOffset = this.board[0].length-1;
         board[y][x] = 1;
         board[y][boardXOffset-x] = 1;
     }
 
-    public void showBoard(){
+    public void showBoard(){//puts the board into the array
         GD.board = this.board;
         //make board outline
         p.strokeWeight(5);

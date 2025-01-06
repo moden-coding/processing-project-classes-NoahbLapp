@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Pathfinding {//ChatGPT helped a lot with this for how I would do it and the libraries
+public class Pathfinding {
     public static int[][] board;
     private static final int[] ROW_MOVES = {-1, 1, 0, 0}; // Up, Down, Left, Right
     private static final int[] COL_MOVES = {0, 0, -1, 1};
@@ -21,7 +21,7 @@ public class Pathfinding {//ChatGPT helped a lot with this for how I would do it
         }
         return null;
     }
-    private static boolean dfs(int[][] maze, int row, int col, int endRow, int endCol, boolean[][] visited, ArrayList<String> directions){
+    private static boolean dfs(int[][] maze, int row, int col, int endRow, int endCol, boolean[][] visited, ArrayList<String> directions){//chatgpt did most of this (but not all)
         if (row < 0 || row >= maze.length || col < 0 || col >= maze[0].length || visited[row][col] || maze[row][col] == 1) {
             return false;
         }

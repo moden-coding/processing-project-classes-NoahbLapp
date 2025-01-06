@@ -66,7 +66,7 @@ public class Pacman {
         }
     }
     
-    private void eatOrbs(){
+    private void eatOrbs(){//eats the orbs :)
         int checkX = (int) x + segDiv / 2;
         int checkY = (int) y + segDiv / 2;
 
